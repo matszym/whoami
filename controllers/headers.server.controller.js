@@ -1,12 +1,11 @@
 'use strict';
-let ip = require('ip');
+let ip = require('request-ip');
 
 exports.sendHeaders = function(req, res) {
-  console.log(req.connection);
   let userAgent = req.headers["user-agent"];
 
   res.send({
-    ipaddress: ip.address(),
+    ipaddress: ip.getClientIp(req),
     language: req.headers["accept-language"].split(',')[0],
     software: userAgent.slice(userAgent.indexOf('(') + 10, userAgent.indexOf(')'))
   });
